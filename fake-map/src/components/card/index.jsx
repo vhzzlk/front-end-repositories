@@ -12,4 +12,5 @@ function Card(params) {
     </div>
   );
 }
+
 export default Card;
