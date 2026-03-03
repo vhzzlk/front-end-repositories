@@ -1,15 +1,45 @@
+import { useEffect, useState } from 'react';
 import Card from './components/card';
+import Pokecard from './components/pokecard';
+import './index.css';
 
 export default function App() {
+  const [data, setData] = useState(null);
+  const [product, setProduct] = useState(null);
+
+  useEffect(() => {
+    fetch('https://pokeapi.co/api/v2/pokemon/ditto')
+      .then(res => res.json())
+      .then(data => setData(data));
+  }, []);
+
+  useEffect(() => {
+    fetch('https://fakestoreapi.com/products/1')
+      .then(res => res.json())
+      .then(product => setProduct(product));
+  }, []);
+
   return (
     <>
-      <Card
-        src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_t.png"
-        title="Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops"
-        description="Card Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday"
-        alt="Card Image"
-        price="$99.99"
-      />
+      {data && (
+        <Pokecard
+          name={data.name}
+          image={data.sprites.front_default}
+          type={data.types[0].type.name}
+        />
+      )}
+
+      {product && (
+        <Card
+          src={product.image}
+          title={product.title}
+          description={product.description}
+          alt={product.title}
+          price={`$${product.price}`}
+          category={product.category}
+        />
+      )}
+      
     </>
   );
 }

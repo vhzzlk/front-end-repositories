@@ -8,6 +8,7 @@ function Card(params) {
         <h2 className="card-title">{params.title}</h2>
         <p className="card-description">{params.description}</p>
         <p className="card-price">{params.price}</p>
+        <p className="card-category">{params.category}</p>
       </div>
     </div>
   );
